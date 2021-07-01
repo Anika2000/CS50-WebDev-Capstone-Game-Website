@@ -12,14 +12,26 @@
     <body>
             <div id="main-button-container">
                 <div class="btn-group-vertical">
+                    {% if user.is_authenticated %}
                     <button id="main-button" type="button" class="btn btn-danger">Main</button>
                     <button id="main-button" type="button" class="btn btn-danger">Profile</button>
                     <button id="main-button" type="button" class="btn btn-danger">Games</button>
                     <button id="main-button" type="button" class="btn btn-danger">Friends</button>
                     <button id="main-button" type="button" class="btn btn-danger">Store</button>
-                    <input id="main-button" type="submit" class="btn btn-dark" value="Logout">
-                    <input id="main-button" type="submit" class="btn btn-dark"  value="Registrar">
-                    <input id="main-button" type="submit" class="btn btn-dark"  value="Login">
+                    {% endif %}
+                    <div id="special">
+                        <form>
+                            <input id="main-button" type="submit" class="btn btn-dark"  value="Registrar">
+                        </form>
+                        <form>
+                            <input id="main-button" type="submit" class="btn btn-dark"  value="Login">
+                        </form>
+                        {% if user.is_authenticated %}
+                        <form>
+                            <input id="main-button" type="submit" class="btn btn-dark"  value="Logout">
+                        </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div id="main-page-layout">

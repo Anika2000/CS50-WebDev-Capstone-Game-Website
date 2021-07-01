@@ -2,5 +2,10 @@
 {% load static %}
 
 {% block body %}
-<h1>Hello</h1>
+<h1>Hello,</h1>
+    {% if request.user.username %}
+        <h1>&lt{{ request.user.username }}&gt</h1>
+    {% else %}
+        <h1>&ltStranger&gt</h1>
+    {% endif %}
 {% endblock %}
