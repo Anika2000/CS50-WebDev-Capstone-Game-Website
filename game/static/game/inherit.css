@@ -1,0 +1,18 @@
+#main-button-container{
+    background-color: blue;
+    width:15%; 
+    height: 100vh;
+    float:left; 
+}
+#main-button{
+    margin: 10px; 
+}
+#main-container {
+    display: flex;
+}
+#main-page-layout{
+    float: left;
+    width: 85%; 
+    height: 100vh;
+    background-color: yellow;
+}
