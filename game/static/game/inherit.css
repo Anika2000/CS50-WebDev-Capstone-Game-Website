@@ -16,3 +16,10 @@
     height: 100vh;
     background-color: yellow;
 }
+
+#special {
+    position: fixed;
+    bottom:0; 
+    
+}
+
