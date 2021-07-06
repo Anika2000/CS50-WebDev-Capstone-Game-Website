@@ -1,0 +1,17 @@
+#register-view{
+    background-color: yellow;
+    width:100%; 
+    height:100vh; 
+}
+
+#login-view{
+    background-color:blue;
+    width:100%; 
+    height:100vh; 
+}
+
+#Username, #exampleInputPassword1, #Confirm-Password, #InputUsername, #Password {
+    width:50%;
+    margin:10px; 
+}
+
