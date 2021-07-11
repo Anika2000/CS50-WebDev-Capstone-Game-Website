@@ -28,15 +28,19 @@ function gameboard(){
 
     document.querySelector('#guess-form').onsubmit = function() {
         char = document.querySelector('#guess-char').value;
-        position = document.querySelector('#position').value; 
         game_id = document.querySelector('#game-id').innerHTML; 
         
         fetch(`/game/${game_id}`)
         .then(response => response.json())
         .then(game => {
-            const word = game.word
-            
-        }); 
+            const word = game.word 
+        });
+        // if the guessed word is in the word then put it in the div
+        if(word.includes(char)){
+
+        } else {
+            //the hangman appears 
+        }
     }; 
 
 
