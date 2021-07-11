@@ -2,10 +2,37 @@
 {% load static %}
 
 {% block body %}
-<h1>Hello,</h1>
-    {% if request.user.username %}
-        <h1>&lt{{ request.user.username }}&gt</h1>
-    {% else %}
-        <h1>&ltStranger&gt</h1>
-    {% endif %}
+    <div id="welcome">
+        <h1>Hello,</h1>
+        {% if request.user.username %}
+            <h1>&lt{{ request.user.username }}&gt</h1>
+        {% else %}
+            <h1>&ltStranger&gt</h1>
+        {% endif %}
+    </div>
+    <div id="profile">
+    </div>
+    
+    <div style="display: none;" id="gameboard">
+        <div id="char-one"></div>
+        <div id="char-two"></div>
+        <div id="char-three"></div>
+        <div id="char-four"></div>
+        <div id="char-five"></div>
+    </div>
+    
+    <div id="player-input">
+        <h1 id="game-id"></h1>
+        <form id="guess-form">
+            <button id="game-start-button" type="button" class="btn btn-danger">Game Start</button>
+            <h6>Character:</h6>
+            <input id="guess-char" type="text">
+            <button id="word-submit" type="button" class="btn btn-primary">Try</button>
+        </form>
+    </div>
+    
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'game/index.js' %}"></script>
 {% endblock %}
