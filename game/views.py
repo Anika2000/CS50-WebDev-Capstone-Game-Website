@@ -10,7 +10,7 @@ import json
 import random
 
 # Create your views here.
-words = ["adore", "lover", "abuse", "adult", "agent", "anger", "apple", "award", "amuse", "beach"]
+words = ["adore", "lover", "abuse", "adult", "agent", "anger", "amuse", "artsy", "beach", "birth", "mango", "straw", "sandy"]
 
 
 def index(request): 
@@ -71,7 +71,8 @@ def gameStart(request):
         new_game.save()
         return_game = new_game.id
         return JsonResponse({"success" : return_game}, safe=False)
-    return JsonResponse({"error" : "Need a POST request."}, status = 400)
+    return JsonResponse({"error" : "Need a POST request."}, status=400)
+
 
 @csrf_exempt
 def gameProfile(request, id): 
