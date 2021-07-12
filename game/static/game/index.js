@@ -10,6 +10,15 @@ function welcome_page() {
     document.querySelector('#player-input').style.display = 'none'; 
 }
 
+function wipeout() {
+    document.querySelector('#char-one').innerHTML = ''; 
+    document.querySelector('#char-two').innerHTML = ''; 
+    document.querySelector('#char-three').innerHTML = ''; 
+    document.querySelector('#char-four').innerHTML = ''; 
+    document.querySelector('#char-five').innerHTML = ''; 
+    document.querySelector('#game-id').innerHTML = ''; 
+}
+
 function convert_to_words(num) {
     if (num === 0){
         return "one"; 
@@ -74,9 +83,12 @@ function gameboard(){
 
                     if(game.wrong_gusses === 6){
                         alert('You lost :( TRY AGAIN')
-                        welcome_page()
+                        wipeout();
+                        welcome_page();
                     } else {
+                        //not updating properly 
                         wrong_guess_count = game.wrong_guesses + 1
+                        console.log(wrong_guess_count)
                         fetch(`/game/${game_id}`, {
                             method: 'PUT', 
                             body : JSON.stringify({
@@ -113,6 +125,7 @@ function gameboard(){
             
                 if(game.wrong_guesses === 6){
                     alert('You lost :( TRY AGAIN')
+                    wipeout();
                     welcome_page(); 
                 } else {
                     
