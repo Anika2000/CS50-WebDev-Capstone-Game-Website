@@ -8,6 +8,7 @@ function welcome_page() {
     document.querySelector('#profile').style.display = 'none';
     document.querySelector('#gameboard').style.display = 'none'; 
     document.querySelector('#player-input').style.display = 'none'; 
+    document.querySelector('#hangman-pic').style.display = 'none'; 
 }
 
 function wipeout() {
@@ -17,6 +18,7 @@ function wipeout() {
     document.querySelector('#char-four').innerHTML = ''; 
     document.querySelector('#char-five').innerHTML = ''; 
     document.querySelector('#game-id').innerHTML = ''; 
+    document.querySelector('#hangman-pic-pic').src = '/static/game/hangman.jpg'; 
 }
 
 function convert_to_words(num) {
@@ -40,8 +42,9 @@ String.prototype.replaceAt = function(index, replacement) {
     return this.substring(0, index) + replacement + this.substring(index + replacement.length); 
 }
 
-function hangman(game){
-    console.log('hangman drawing')
+function hangman(number){
+    
+    document.querySelector('#hangman-pic-pic').src = '/static/game/hangman' + number + '.jpg'; 
 }
 
 function gameboard(){
@@ -50,6 +53,7 @@ function gameboard(){
     document.querySelector('#profile').style.display = 'none'; 
     document.querySelector('#gameboard').style.display = 'block'; 
     document.querySelector('#player-input').style.display = 'block'; 
+    document.querySelector('#hangman-pic').style.display = 'block'; 
     
     document.querySelector('#game-start-button').addEventListener('click', function() {
         fetch('/game-start', {
@@ -75,10 +79,10 @@ function gameboard(){
             const word = game.word
             console.log(word)
             const word_state = game.word_state
+            
             if(word.includes(char)){
                 const num = word.indexOf(char)
                 console.log(num)
-
                 if(Number(String(word_state).charAt(num)) === 2){
 
                     if(game.wrong_gusses === 6){
@@ -86,16 +90,17 @@ function gameboard(){
                         wipeout();
                         welcome_page();
                     } else {
-                        //not updating properly 
+                        
+                        console.log(game.wrong_guesses)
                         wrong_guess_count = game.wrong_guesses + 1
                         console.log(wrong_guess_count)
                         fetch(`/game/${game_id}`, {
                             method: 'PUT', 
                             body : JSON.stringify({
-                                wrong_gusses: wrong_guess_count
+                                wrong_guesses: wrong_guess_count
                             })
                         })
-                        hangman(game)
+                        hangman(wrong_guess_count)
                     }
                     
                 } else {
@@ -137,7 +142,7 @@ function gameboard(){
                             wrong_guesses: wrong_guess_count
                         })
                     })
-                    hangman(game)
+                    hangman(wrong_guess_count)
                 }
             }
 
