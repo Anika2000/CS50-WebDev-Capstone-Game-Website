@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', function(){
-     welcome_page()
+    welcome_page()
     document.querySelector('#main-button-console').addEventListener('click', gameboard); 
-}); 
+    document.querySelector('#main-button-main').addEventListener('click', function() {
+        document.querySelector('#welcome').style.display = 'none'; 
+        document.querySelector('#profile').style.display = 'none';
+        document.querySelector('#gameboard').style.display = 'none'; 
+        document.querySelector('#player-input').style.display = 'none'; 
+        document.querySelector('#hangman-pic').style.display = 'none';
+        document.querySelector('#main').style.display = 'block'; 
+    }); 
+});
+
+
 
 function welcome_page() {
     document.querySelector('#welcome').style.display = 'block'; 
+    document.querySelector('#main').style.display = 'none'; 
     document.querySelector('#profile').style.display = 'none';
     document.querySelector('#gameboard').style.display = 'none'; 
     document.querySelector('#player-input').style.display = 'none'; 
@@ -50,6 +61,7 @@ function hangman(number){
 function gameboard(){
 
     document.querySelector('#welcome').style.display = 'none'; 
+    document.querySelector('#main').style.display = 'none'; 
     document.querySelector('#profile').style.display = 'none'; 
     document.querySelector('#gameboard').style.display = 'block'; 
     document.querySelector('#player-input').style.display = 'block'; 
