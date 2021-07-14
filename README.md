@@ -2,7 +2,7 @@
 Using Django on the back-end and HTML, CSS, JavaScript, React and Bootstrap on the front-end, I have created a project that allows users to play a game of hangman. 
 
 ## Navigating the file system: 
-   :open_file_folder: **game** : root folder for game app
+    :open_file_folder: **game** : root folder for game app
       - :open_file_folder: **static/game** : Contains static files like image files, css files and JS files
          - :open_file_folder: **index.js** : contains javascript code for the project 
          - :open_file_folder: **inherit.css** : CSS style file for the django project 
