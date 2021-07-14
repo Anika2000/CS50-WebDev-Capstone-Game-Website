@@ -3,6 +3,7 @@ Using Django on the back-end and HTML, CSS, JavaScript, React and Bootstrap on t
 
 ## Navigating the file system: 
    :open_file_folder: **game** : root folder for game app
+   :open_file_folder: **game** : root folder for game app
       
    
 
