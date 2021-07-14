@@ -2,5 +2,5 @@
 Using Django on the back-end and HTML, CSS, JavaScript, React and Bootstrap on the front-end, I have created a project that allows users to play a game of hangman. 
 
 ## Navigating the file system: 
-  <i class="far fa-folder"></i>game : root folder
+  @icon-folder game : root folder
 
