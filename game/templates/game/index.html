@@ -12,32 +12,26 @@
     </div>
 
     <div id="main">
-        <h3 style="text-align: center;">Welcome to Cute Games.com</h3>
-        <h3 style="text-align: center;">Play Hangman and have lots of FUN</h3>
-        <div class="card-group">
-            <div class="card bg-dark text-white">
-            <img src="{% static 'game/slide-image-one.jpg' %}" class="card-img" alt="...">
-            <div class="card-img-overlay">
-                <h5 class="card-title">Hangman makes your neck feel...</h5>
-                <p class="card-text">Junji Ito's Hanging Balloons</p>
-            </div>
-            </div>
-            <div class="card bg-dark text-white">
-                <img style="height: 440px;" src="{% static 'game/slide-image-two.jpg' %}" class="card-img" alt="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">...a little...a little...</h5>
-                    <p class="card-text">Satoshi Kon's Perfect Blue</p>
-                </div>
-            </div>
-            <div class="card bg-dark text-white">
-                <img style="height: 440px;" src="{% static 'game/slide-image-three.jpg' %}" class="card-img" alt="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">....sqeezy doesn't it?</h5>
-                    <p class="card-text">Tsutomu Mizushima's Another</p>
-                </div>
-            </div> 
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Cute Games.com</h1>
+            <p class="lead">Play Hangman and have lots of FUN</p>
+            <hr class="my-4">  
+
+            <div id="spinners"></div>
+             
+            <script type="text/babel">
+                function Spinner() {
+                    let spins = []
+                    for (let i = 0; i < ((4 * 102) - 12); ++i) {
+                        spins.push(<div class="spinner-grow text-danger" role="status" key={i}></div>)
+                    }
+                    return (
+                        <div>{spins}</div>
+                    );
+                }
+                ReactDOM.render(<Spinner />, document.querySelector("#spinners"))
+            </script>
         </div>
-        <h3 style="text-align: center;">Spooky times begin here</h3>
     </div>
 
     <div id="profile">
@@ -69,4 +63,7 @@
 
 {% block script %}
     <script src="{% static 'game/index.js' %}"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 {% endblock %}
