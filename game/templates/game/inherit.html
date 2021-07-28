@@ -8,8 +8,10 @@
         <link rel="stylesheet" href="{% static 'game/inherit.css' %}">
         {% block script %}
         {% endblock %}
+
     </head>
-    <body>  
+    <body> 
+        
             <div id="main-button-container">
                 <div class="btn-group-vertical">
                     <button  style="margin: 10px;" id="main-button-main" type="button" class="btn btn-secondary">Main</button>
@@ -38,6 +40,9 @@
                 </div>
             </div> 
             <div id="main-page-layout">
+            {% if message %}
+                {{ message }}
+            {% endif %} 
                 
                 {% block body %}
                 {% endblock %}
