@@ -7,6 +7,7 @@ Using Django on the back-end and HTML, CSS, JavaScript, React and Bootstrap on t
            -   :open_file_folder: **index.js** : contains javascript code for the django project 
            -   :open_file_folder: **inherit.css** : CSS style file for the django project 
            -   :open_file_folder: **register.css** : CSS style file for the django project 
+           -   There are also image files present here that is loaded in my html files when required. 
       
       -  :open_file_folder: **templates/game** : Contains HTML  files 
            - :open_file_folder: **inherit.html** : This is the layout html file that other html files inherit from 
