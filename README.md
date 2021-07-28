@@ -10,13 +10,15 @@ Using Django on the back-end and HTML, CSS, JavaScript, React and Bootstrap on t
       
       -  :open_file_folder: **templates/game** : Contains HTML  files 
            - :open_file_folder: **inherit.html** : This is the layout html file that other html files inherit from 
-           - :open_file_folder: **index.html** : HTML file for the main view 
+           - :open_file_folder: **index.html** : HTML file for the main view where I have created various divs whose views are controlled by JavaScript written in index.js
            - :open_file_folder: **login.html** : HTML for the login view 
+           - :open_file_folder: **profile.html** : HTML for an individual user where other user can follow them
+           - :open_file_folder: **false.html** : HTML for a user that is not in our database but was searched for following
            - :open_file_folder: **register.html** : HTML for the register view 
       
       -  :open_file_folder: **model.py** : Contains the models for the database which is in SQLite 
       
-      -  :open_file_folder: **urls.py** : Contains the routes for the game app 
+      -  :open_file_folder: **urls.py** : Contains the routes for the game app and also the JSON REST API routes
 
       -  :open_file_folder: **views.py** : Contains the functions that render views for this app 
       
