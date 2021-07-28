@@ -1,17 +1,138 @@
 document.addEventListener('DOMContentLoaded', function(){
     welcome_page()
     document.querySelector('#main-button-console').addEventListener('click', gameboard); 
-    document.querySelector('#main-button-main').addEventListener('click', function() {
-        document.querySelector('#welcome').style.display = 'none'; 
-        document.querySelector('#profile').style.display = 'none';
-        document.querySelector('#gameboard').style.display = 'none'; 
-        document.querySelector('#player-input').style.display = 'none'; 
-        document.querySelector('#hangman-pic').style.display = 'none';
-        document.querySelector('#main').style.display = 'block'; 
-    }); 
+    document.querySelector('#main-button-main').addEventListener('click', () => load_view('main')); 
+    document.querySelector('#main-button-profile').addEventListener('click', () => load_view('profile')); 
+    document.querySelector('#main-button-players').addEventListener('click', () => load_view('chat')); 
+    document.querySelector('#main-button-settings').addEventListener('click', () => load_view('settings')); 
 });
 
+function load_view(content){
 
+    document.querySelector('#welcome').style.display = 'none'; 
+    document.querySelector('#profile').style.display = 'none';
+    document.querySelector('#gameboard').style.display = 'none'; 
+    document.querySelector('#player-input').style.display = 'none'; 
+    document.querySelector('#hangman-pic').style.display = 'none';
+    document.querySelector('#main').style.display = 'none'; 
+    document.querySelector('#chat').style.display = 'none'; 
+    document.querySelector('#settings').style.display = 'none'; 
+
+    if(content === 'profile'){
+        document.querySelector('#profile').style.display = 'block';
+        profilename = document.querySelector('#profile-name').innerHTML; 
+        fetch(`game/${profilename}`)
+        .then(response => response.json())
+        .then(info => {
+            console.log(info); 
+            const followers = info.followers; 
+            const followings = info.followings; 
+            const gamesPlayed = info.played_games; 
+            const wonGames = info.won_games; 
+            document.querySelector('#games-played').innerHTML = `Games Played: ${gamesPlayed}`
+            document.querySelector('#games-won').innerHTML =`Games Won: ${wonGames}`
+            document.querySelector('#followers').innerHTML = `Followers: ${followers}`
+            document.querySelector('#followings').innerHTML = `Following: ${followings}`
+        }); 
+
+        fetch(`wongames/${profilename}`)
+        .then(response => response.json())
+        .then(winnings => {
+            console.log(winnings)
+            for(let i=0; i<3; i++){
+                again_id_name = convert_to_words(i); 
+                document.querySelector(`#won-tries-${again_id_name}`).innerHTML = `Tries: ${winnings[i].wrong_guesses}`; 
+                document.querySelector(`#won-word-${again_id_name}`).innerHTML = `Word: <b>${winnings[i].word}</b>`; 
+            }
+        }); 
+
+        fetch(`lostgames/${profilename}`)
+        .then(response => response.json())
+        .then(losings => {
+            console.log(losings)
+            for(let i=0; i<3; i++){
+                again_again_id_name = convert_to_words(i); 
+                document.querySelector(`#lost-tries-${again_again_id_name}`).innerHTML = `Tries: ${losings[i].wrong_guesses}`; 
+                document.querySelector(`#lost-word-${again_again_id_name}`).innerHTML = `Word: <b>${losings[i].word}</b>`; 
+            }
+        });
+
+
+
+    } else if(content === 'main'){
+        document.querySelector('#main').style.display = 'block'; 
+
+    } else if(content === 'chat'){
+        document.querySelector('#chat').style.display = 'block'; 
+        document.querySelector('#chat-receiver').value = ''; 
+        document.querySelector('#chat-message').value = ''; 
+        //FETCH THE THREE RECENT MESSAGE INFO
+        fetch('/messages')
+        .then(response => response.json())
+        .then(texts => {
+            console.log(texts)
+            for(let i=0; i<3; i++){
+                id_name = convert_to_words(i); 
+                document.querySelector(`#recent-sender-name-${id_name}`).innerHTML = texts[i].sender_name; 
+                document.querySelector(`#recent-sender-time-${id_name}`).innerHTML = texts[i].timestamp; 
+                document.querySelector(`#recent-sender-text-${id_name}`).innerHTML = texts[i].message_text; 
+            }
+        }); 
+        document.querySelector('#recent-one').addEventListener('click', function(){
+            document.querySelector('#message-card-send-name').innerHTML = document.querySelector('#recent-sender-name-one').innerHTML;
+            document.querySelector('#lastone-text').innerHTML =  document.querySelector('#recent-sender-text-one').innerHTML; 
+        }); 
+        document.querySelector('#recent-two').addEventListener('click', function(){
+            document.querySelector('#message-card-send-name').innerHTML = document.querySelector('#recent-sender-name-two').innerHTML;
+            document.querySelector('#lastone-text').innerHTML =  document.querySelector('#recent-sender-text-two').innerHTML; 
+        }); 
+        document.querySelector('#recent-three').addEventListener('click', function(){
+            document.querySelector('#message-card-send-name').innerHTML = document.querySelector('#recent-sender-name-three').innerHTML;
+            document.querySelector('#lastone-text').innerHTML =  document.querySelector('#recent-sender-text-three').innerHTML; 
+        }); 
+
+        document.querySelector('#chat-submit').addEventListener('click', () => send_message())
+    }
+    else if (content === 'settings'){
+        document.querySelector('#settings').style.display = 'block'; 
+    }
+    
+
+}
+
+function send_message() {
+    const receiver_name = document.querySelector('#chat-receiver').value; 
+    const message_text = document.querySelector('#chat-message').value; 
+
+    fetch('/sendMessage', {
+        method: 'POST',
+        body: JSON.stringify({
+            receiver_name : receiver_name, 
+            message_text : message_text
+        })
+    })
+    .then(response => response.json())
+    .then(chat => {
+        console.log(chat); 
+        refresh_chat(`${receiver_name}`);  
+    }); 
+    return false; 
+}
+
+function refresh_chat(name) {
+    document.querySelector('#welcome').style.display = 'none'; 
+    document.querySelector('#main').style.display = 'none'; 
+    document.querySelector('#profile').style.display = 'none';
+    document.querySelector('#gameboard').style.display = 'none'; 
+    document.querySelector('#player-input').style.display = 'none'; 
+    document.querySelector('#hangman-pic').style.display = 'none';
+    document.querySelector('#settings').style.display = 'none'; 
+    document.querySelector('#chat').style.display = 'block';
+    document.querySelector('#chat-receiver').value = ''; 
+    document.querySelector('#chat-message').value = ''; 
+    document.querySelector('#message-card-send-name').innerHTML = `<${name}>`; 
+    
+}
 
 function welcome_page() {
     document.querySelector('#welcome').style.display = 'block'; 
@@ -19,7 +140,9 @@ function welcome_page() {
     document.querySelector('#profile').style.display = 'none';
     document.querySelector('#gameboard').style.display = 'none'; 
     document.querySelector('#player-input').style.display = 'none'; 
-    document.querySelector('#hangman-pic').style.display = 'none'; 
+    document.querySelector('#hangman-pic').style.display = 'none';
+    document.querySelector('#chat').style.display = 'none';  
+    document.querySelector('#settings').style.display = 'none'; 
 }
 
 function wipeout() {
@@ -66,6 +189,7 @@ function gameboard(){
     document.querySelector('#gameboard').style.display = 'block'; 
     document.querySelector('#player-input').style.display = 'block'; 
     document.querySelector('#hangman-pic').style.display = 'block'; 
+    document.querySelector('#chat').style.display = 'none'; 
     
     document.querySelector('#game-start-button').addEventListener('click', function() {
         fetch('/game-start', {
@@ -136,6 +260,8 @@ function gameboard(){
                                 win: true
                             })
                         })
+
+                        wipeout(); 
                     }
                 }
             } else {
